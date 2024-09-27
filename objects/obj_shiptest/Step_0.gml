@@ -50,14 +50,19 @@ y += lengthdir_y(speed, direction);
 var _new_x = x + lengthdir_x(speed, direction); // Calcula a nova posição em X
 var _new_y = y + lengthdir_y(speed, direction); // Calcula a nova posição em Y
 
-// Colisão da nave
-if (!place_meeting(_new_x, _new_y, obj_colider)) {
+// Atualizar a posição da nave
+x += lengthdir_x(speed, direction);
+y += lengthdir_y(speed, direction);
+
+// Verifica se a nova posição colidiria com um objeto sólido
+if (!place_meeting(_new_x, _new_y, all)) {
     // Se não houver colisão, mova a nave
     x = _new_x;
     y = _new_y;
-}else {
+} else {
 	// Se houver colisão, pare a nave
-    speed = 0;
+     move_bounce_solid(true); 
+		 
 }
 // Redirecionar a nave
 if (!place_meeting(_new_x, _new_y, obj_colider_redirector)) {
@@ -66,5 +71,6 @@ if (!place_meeting(_new_x, _new_y, obj_colider_redirector)) {
     y = _new_y;
 } else {
     // Se houver colisão, redirecione a nave
-	direction = direction + 90;
+	direction = direction + 90
 }
+
